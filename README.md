@@ -9,6 +9,23 @@ Inspired by [justinwlin/meeting-reminder](https://github.com/justinwlin/meeting-
 but with no calendar integration — you set the schedule yourself, and you can
 have as many reminders as you want.
 
+## How to install (no coding needed)
+
+1. Go to the [Releases page](https://github.com/spelaanzeljc/flying-reminders/releases/latest)
+   and download the file for your computer:
+   - **Mac**: `Flying Reminders-1.0.0-arm64.dmg`
+   - **Windows**: `Flying Reminders Setup 1.0.0.exe`
+2. Open the downloaded file and install it like any other app.
+3. The first time you open it, your computer will warn you it's from an
+   "unidentified developer" — that's expected, this app isn't signed. Here's
+   how to get past it:
+   - **Mac**: don't double-click it. Instead, **right-click the app → Open**,
+     then click **Open** again in the popup.
+   - **Windows**: click **More info**, then **Run anyway**.
+4. Look for a small icon (a cat, dog, or UFO) in your menu bar (Mac, top
+   right) or system tray (Windows, bottom right). Click it to set up your
+   first reminder.
+
 ## Features
 
 - Click the tray icon and everything opens right there in one panel — no
