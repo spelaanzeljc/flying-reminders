@@ -1,0 +1,43 @@
+{
+  "name": "flying-reminders",
+  "productName": "Flying Reminders",
+  "version": "1.0.0",
+  "description": "Menu-bar app that flies a character towing a banner across your screen at times you schedule, prompting you to log your hours.",
+  "main": "src/main/index.js",
+  "private": true,
+  "author": "Špela Anzeljc Gačnik",
+  "scripts": {
+    "start": "electron .",
+    "build:mac": "electron-builder --mac",
+    "build:win": "electron-builder --win",
+    "build": "electron-builder --mac --win"
+  },
+  "devDependencies": {
+    "electron": "^33.0.0",
+    "electron-builder": "^25.0.0"
+  },
+  "build": {
+    "appId": "com.spelaanzeljc.flyingreminders",
+    "productName": "Flying Reminders",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "src/**/*",
+      "package.json"
+    ],
+    "mac": {
+      "target": ["dmg"],
+      "icon": "src/assets/characters/cat-character.png",
+      "category": "public.app-category.productivity"
+    },
+    "win": {
+      "target": [{ "target": "nsis", "arch": ["x64"] }],
+      "icon": "src/assets/characters/cat-character.png"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    }
+  }
+}

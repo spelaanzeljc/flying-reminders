@@ -1,0 +1,170 @@
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  overflow: hidden;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  user-select: none;
+}
+
+.rig {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  cursor: pointer;
+  -webkit-app-region: no-drag;
+}
+
+.stage {
+  position: absolute;
+  inset: 0;
+}
+
+.stage img {
+  position: absolute;
+  display: block;
+  -webkit-user-drag: none;
+}
+
+/* ---- shared motion ---- */
+
+@keyframes rollWobble {
+  0%, 100% { transform: rotate(-2deg) translateY(0); }
+  25% { transform: rotate(1.6deg) translateY(-4px); }
+  55% { transform: rotate(-1deg) translateY(0); }
+  80% { transform: rotate(2deg) translateY(-3px); }
+}
+
+.character {
+  animation: rollWobble 1.5s ease-in-out infinite;
+}
+
+@keyframes bannerWave {
+  0%, 100% { transform: skewY(-1deg) scaleY(1); }
+  50% { transform: skewY(1.2deg) scaleY(0.985); }
+}
+
+.banner-wrap {
+  position: absolute;
+  animation: bannerWave 2.2s ease-in-out infinite;
+}
+
+.text-block {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+}
+
+.text-block .title {
+  font-size: 18px;
+  font-weight: 800;
+  line-height: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.text-block .subtitle {
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dust {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(59, 26, 22, 0.16);
+  animation: dust 1.2s linear infinite;
+}
+
+@keyframes dust {
+  0% { transform: translate(0, 0) scale(0.6); opacity: 0.75; }
+  100% { transform: translate(-100px, -10px) scale(2); opacity: 0; }
+}
+
+.dust.right {
+  animation-name: dustR;
+}
+
+@keyframes dustR {
+  0% { transform: translate(0, 0) scale(0.6); opacity: 0.7; }
+  100% { transform: translate(100px, -10px) scale(2); opacity: 0; }
+}
+
+/* left/top are set per-character in banner.js, anchored to that
+   character's banner shape rather than a fixed corner of the window. */
+.dismiss {
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(20, 20, 26, 0.28);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+  z-index: 5;
+}
+
+.dismiss:hover {
+  background: rgba(20, 20, 26, 0.5);
+}
+
+/* ---- alien-specific ---- */
+
+@keyframes hoverBob {
+  0%, 100% { transform: translateY(-5px); }
+  50% { transform: translateY(6px); }
+}
+
+.hover-group {
+  position: absolute;
+  inset: 0;
+  animation: hoverBob 3.2s ease-in-out infinite;
+}
+
+.trapezoid {
+  position: absolute;
+  transform-origin: 50% 0%;
+  transform: scaleY(0.04);
+  opacity: 0;
+  transition: transform 0.55s cubic-bezier(0.3, 1.2, 0.4, 1), opacity 0.4s ease;
+}
+
+.trapezoid.revealed {
+  transform: scaleY(1);
+  opacity: 1;
+}
+
+.alien-text {
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.alien-text.revealed {
+  opacity: 1;
+}
+
+.twinkle {
+  position: absolute;
+  color: #ffd76a;
+  font-size: 16px;
+  animation: twinkle 2.3s ease-in-out infinite;
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.25; transform: scale(0.8); }
+  50% { opacity: 1; transform: scale(1.15); }
+}

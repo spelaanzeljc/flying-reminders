@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Flying Reminders</title>
+  <link rel="stylesheet" href="settings.css" />
+</head>
+<body>
+  <div class="popover">
+    <header class="header">
+      <span class="header-icon">🐾</span>
+      <span class="header-title">Flying Reminders</span>
+    </header>
+
+    <!-- LIST VIEW -->
+    <div id="listView" class="view">
+      <div class="row row-toggle">
+        <span class="row-icon">🖥️</span>
+        <span class="row-label">Launch at Login</span>
+        <label class="switch">
+          <input type="checkbox" id="launchAtLogin" />
+          <span class="slider"></span>
+        </label>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="section-label">Reminders</div>
+      <button class="row row-action" id="addReminderBtn">
+        <span class="row-icon">➕</span>
+        <span class="row-label">Add Reminder</span>
+      </button>
+
+      <div id="remindersList" class="reminders-list"></div>
+      <p id="emptyState" class="empty-state hidden">No reminders yet — add one above.</p>
+
+      <div class="divider"></div>
+
+      <div class="section-label">Banner settings</div>
+
+      <div class="row row-stack">
+        <div class="row-top">
+          <span class="row-icon">🕓</span>
+          <span class="row-label">Banner speed</span>
+        </div>
+        <div class="segmented" id="bannerSpeed">
+          <button type="button" class="segment" data-speed="slow">Slow</button>
+          <button type="button" class="segment" data-speed="normal">Normal</button>
+          <button type="button" class="segment" data-speed="fast">Fast</button>
+        </div>
+      </div>
+
+      <div class="row row-stack">
+        <div class="row-top">
+          <span class="row-icon">🎭</span>
+          <span class="row-label">Character</span>
+        </div>
+        <div class="character-picker" id="characterPicker">
+          <button type="button" class="char-btn" data-character="cat">
+            <img src="../../assets/characters/cat-character.png" alt="" />
+            <span>Cat</span>
+          </button>
+          <button type="button" class="char-btn" data-character="dog">
+            <img src="../../assets/characters/dog-character.png" alt="" />
+            <span>Dog</span>
+          </button>
+          <button type="button" class="char-btn" data-character="alien">
+            <img src="../../assets/characters/alien-ship.png" alt="" />
+            <span>Alien</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <button class="row row-action" id="testBannerBtn">
+        <span class="row-icon">✨</span>
+        <span class="row-label">Test Flying</span>
+      </button>
+
+      <div class="divider"></div>
+
+      <button class="row row-action row-quit" id="quitBtn">
+        <span class="row-icon">⏻</span>
+        <span class="row-label">Quit Flying Reminders</span>
+      </button>
+    </div>
+
+    <!-- FORM VIEW -->
+    <div id="formView" class="view hidden">
+      <button class="row row-action row-back" id="backBtn">
+        <span class="row-icon">‹</span>
+        <span class="row-label" id="formTitle">Add Reminder</span>
+      </button>
+
+      <div class="form-body">
+        <label class="field">
+          <span>Label</span>
+          <input type="text" id="fieldLabel" placeholder="Log your hours" maxlength="60" />
+        </label>
+
+        <label class="field">
+          <span>Days</span>
+          <div class="days" id="fieldDays">
+            <button type="button" class="day-btn" data-day="1">Mo</button>
+            <button type="button" class="day-btn" data-day="2">Tu</button>
+            <button type="button" class="day-btn" data-day="3">We</button>
+            <button type="button" class="day-btn" data-day="4">Th</button>
+            <button type="button" class="day-btn" data-day="5">Fr</button>
+            <button type="button" class="day-btn" data-day="6">Sa</button>
+            <button type="button" class="day-btn" data-day="0">Su</button>
+          </div>
+        </label>
+
+        <label class="field">
+          <span>Time</span>
+          <input type="time" id="fieldTime" />
+        </label>
+
+        <label class="field">
+          <span>Link to open when clicked</span>
+          <input type="url" id="fieldUrl" placeholder="https://your-timesheet-tool.com" />
+        </label>
+
+        <label class="field row-inline">
+          <input type="checkbox" id="fieldEnabled" />
+          <span>Enabled</span>
+        </label>
+
+        <p id="formError" class="form-error hidden"></p>
+
+        <div class="form-actions">
+          <button class="btn ghost" id="deleteBtn" style="display:none;">Delete</button>
+          <button class="btn ghost" id="cancelBtn">Cancel</button>
+          <button class="btn primary" id="saveBtn">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="settings.js"></script>
+</body>
+</html>

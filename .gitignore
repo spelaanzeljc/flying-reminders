@@ -1,0 +1,8 @@
+node_modules/
+dist/
+.DS_Store
+
+# Original design reference material (full composites, animated preview
+# bundle) — not needed to build/run the app; the assets it actually uses
+# already live in src/assets/characters/.
+graphic-material/
