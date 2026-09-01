@@ -5,7 +5,11 @@ const { Tray, Menu, nativeImage, app } = require('electron');
 const CHARACTER_ICON_FILE = {
   cat: 'cat-character.png',
   dog: 'dog-character.png',
-  alien: 'alien-ship.png'
+  alien: 'alien-ship.png',
+  // The other characters are bold flat-color art that survives downsizing;
+  // the raccoon's fine ink cross-hatching turns to noise at 16-22px, so it
+  // gets a dedicated bolded/silhouetted crop just for the tray icon.
+  raccoon: 'raccoon-tray.png'
 };
 
 function iconPathFor(character) {

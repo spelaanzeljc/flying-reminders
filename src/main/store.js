@@ -7,7 +7,7 @@ const DEFAULT_DATA = {
   settings: {
     launchAtLogin: false,
     bannerSpeed: 'normal', // 'slow' | 'normal' | 'fast'
-    character: 'cat' // 'cat' | 'dog' | 'alien'
+    character: 'cat' // 'cat' | 'dog' | 'alien' | 'raccoon'
   },
   reminders: []
 };

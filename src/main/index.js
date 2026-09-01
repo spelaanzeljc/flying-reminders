@@ -71,7 +71,7 @@ if (!app.requestSingleInstanceLock()) {
     });
 
     ipcMain.handle('settings:setCharacter', (_event, value) => {
-      const character = ['cat', 'dog', 'alien'].includes(value) ? value : 'cat';
+      const character = ['cat', 'dog', 'alien', 'raccoon'].includes(value) ? value : 'cat';
       const updated = store.setSettings({ character });
       trayHandle.setIcon(character);
       return updated;

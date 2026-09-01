@@ -8,7 +8,7 @@ const SCALE = 0.8;
 // biased toward the notched tail end the way the reference art was.
 const SCENES = {
   dog: {
-    character: { src: 'dog-character.png', left: 0, top: 0, size: 272 },
+    character: { src: 'dog-character.png', left: 0, top: 0, width: 272, height: 272 },
     banner: { src: 'dog-banner.png', left: 132, top: 18, width: 629, height: 99 },
     text: { left: 148, top: 5, width: 333, height: 91, titleColor: '#fbefd9', subtitleColor: '#8fd8b0' },
     // Dog's notch/tail is the right edge (rope attaches on the left) — the
@@ -23,7 +23,7 @@ const SCENES = {
     dustDir: 'right'
   },
   cat: {
-    character: { src: 'cat-character.png', left: 461, top: 0, size: 272 },
+    character: { src: 'cat-character.png', left: 461, top: 0, width: 272, height: 272 },
     banner: { src: 'cat-banner.png', left: 0, top: 87, width: 541, height: 99 },
     text: { left: 111, top: 4, width: 320, height: 91, titleColor: '#3b1a16', subtitleColor: '#2e9e63' },
     // Cat's notch/tail is the left edge (rope attaches on the right).
@@ -33,6 +33,17 @@ const SCENES = {
       { left: 460, bottom: 22, size: 13, opacity: 0.1, delay: 0.6 }
     ],
     dustDir: 'left'
+  },
+  raccoon: {
+    character: { src: 'raccoon-character.png', left: 0, top: 0, width: 301, height: 272 },
+    banner: { src: 'raccoon-banner.png', left: 271, top: 46, width: 804, height: 126 },
+    text: { left: 192, top: 5, width: 420, height: 116, titleColor: '#ffffff', subtitleColor: '#e8c468' },
+    // Raccoon's notch/tail is the right edge (rope attaches at the goose's
+    // beak, on the left) — same side pattern as the dog.
+    dismiss: { left: 1030, top: 54 },
+    // No dust — it's flying, not rolling on the ground.
+    dust: [],
+    dustDir: 'right'
   }
 };
 
@@ -48,13 +59,13 @@ function px(n) {
   return `${n * SCALE}px`;
 }
 
-function buildCatOrDog(character, data, stage, speedFactor) {
+function buildScene(character, data, stage, speedFactor) {
   const scene = SCENES[character];
 
   const charImg = el('img', { src: ASSETS + scene.character.src, className: 'character' });
   Object.assign(charImg.style, {
     left: px(scene.character.left), top: px(scene.character.top),
-    width: px(scene.character.size), height: px(scene.character.size),
+    width: px(scene.character.width), height: px(scene.character.height),
     transformOrigin: '50% 92%',
     animationDuration: `${1.5 * speedFactor}s`
   });
@@ -174,7 +185,8 @@ window.bannerApi.onInit((data) => {
   if (data.character === 'alien') {
     buildAlien(data, stage, durationMs, speedFactor);
   } else {
-    buildCatOrDog(data.character === 'dog' ? 'dog' : 'cat', data, stage, speedFactor);
+    const key = SCENES[data.character] ? data.character : 'cat';
+    buildScene(key, data, stage, speedFactor);
   }
 });
 

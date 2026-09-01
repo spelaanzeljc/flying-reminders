@@ -103,37 +103,61 @@ const THERE_AND_BACK_CURVE = [[0, 0], [0.24, 1.04], [0.3, 0.97], [0.36, 1], [0.7
 const RIG = {
   cat: { width: 586, height: 218 },
   dog: { width: 609, height: 218 },
-  alien: { width: 415, height: 434 }
+  alien: { width: 415, height: 434 },
+  raccoon: { width: 860, height: 218 }
 };
 
+const CHARACTERS = ['cat', 'dog', 'alien', 'raccoon'];
+
 function flyBanner(reminder, settings) {
-  const character = ['cat', 'dog', 'alien'].includes(settings && settings.character) ? settings.character : 'cat';
+  const character = CHARACTERS.includes(settings && settings.character) ? settings.character : 'cat';
   const durationMs = SPEED_DURATION_MS[settings && settings.speed] || SPEED_DURATION_MS.normal;
   const rig = RIG[character];
 
   const display = screen.getPrimaryDisplay();
   const { x: workX, y: workY, width: workWidth, height: workHeight } = display.workArea;
 
-  const computePosition = (character === 'alien')
-    ? (() => {
-      const entryY = workY - rig.height;
-      const hoverY = workY + Math.round(workHeight * 0.3);
-      const x = workX + Math.round((workWidth - rig.width) / 2);
-      return (t) => {
-        const p = ease(THERE_AND_BACK_CURVE, t);
-        return { x, y: Math.round(entryY + p * (hoverY - entryY)) };
-      };
-    })()
-    : (() => {
-      const goingRight = character === 'cat';
-      const entryX = goingRight ? workX - rig.width : workX + workWidth + rig.width;
-      const exitX = goingRight ? workX + workWidth + rig.width : workX - rig.width;
-      const y = workY + workHeight - rig.height - 24;
-      return (t) => {
-        const p = ease(PASS_THROUGH_CURVE, t);
-        return { x: Math.round(entryX + p * (exitX - entryX)), y };
-      };
-    })();
+  let computePosition;
+  if (character === 'alien') {
+    const entryY = workY - rig.height;
+    const hoverY = workY + Math.round(workHeight * 0.3);
+    const x = workX + Math.round((workWidth - rig.width) / 2);
+    computePosition = (t) => {
+      const p = ease(THERE_AND_BACK_CURVE, t);
+      return { x, y: Math.round(entryY + p * (hoverY - entryY)) };
+    };
+  } else if (character === 'raccoon') {
+    // Diagonal, bottom-right off-screen to top-left off-screen, with a
+    // perpendicular sine wave layered on top so it swoops like a bird
+    // instead of sliding in a straight line.
+    const entryX = workX + workWidth + rig.width;
+    const entryY = workY + workHeight + rig.height;
+    const exitX = workX - rig.width;
+    const exitY = workY - rig.height;
+    const dx = exitX - entryX;
+    const dy = exitY - entryY;
+    const len = Math.hypot(dx, dy) || 1;
+    const perpX = -dy / len;
+    const perpY = dx / len;
+    const waveAmplitude = 70;
+    const wavePeriodMs = 1100 * (durationMs / 9000);
+    computePosition = (t) => {
+      const p = ease(PASS_THROUGH_CURVE, t);
+      const baseX = entryX + p * dx;
+      const baseY = entryY + p * dy;
+      const wave = Math.sin(((t * durationMs) / wavePeriodMs) * Math.PI * 2) * waveAmplitude;
+      return { x: Math.round(baseX + perpX * wave), y: Math.round(baseY + perpY * wave) };
+    };
+  } else {
+    const goingRight = character === 'cat';
+    const entryX = goingRight ? workX - rig.width : workX + workWidth + rig.width;
+    const exitX = goingRight ? workX + workWidth + rig.width : workX - rig.width;
+    const y = workY + workHeight - rig.height - 24;
+    computePosition = (t) => {
+      const p = ease(PASS_THROUGH_CURVE, t);
+      return { x: Math.round(entryX + p * (exitX - entryX)), y };
+    };
+  }
 
   // Start fully off-screen from the moment the window exists — passing x/y
   // here (rather than setting position only after load) rules out any

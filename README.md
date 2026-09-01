@@ -22,9 +22,9 @@ have as many reminders as you want.
    - **Mac**: don't double-click it. Instead, **right-click the app → Open**,
      then click **Open** again in the popup.
    - **Windows**: click **More info**, then **Run anyway**.
-4. Look for a small icon (a cat, dog, or UFO) in your menu bar (Mac, top
-   right) or system tray (Windows, bottom right). Click it to set up your
-   first reminder.
+4. Look for a small icon (a cat, dog, UFO, or raccoon) in your menu bar
+   (Mac, top right) or system tray (Windows, bottom right). Click it to set
+   up your first reminder.
 
 ## Features
 
@@ -33,9 +33,11 @@ have as many reminders as you want.
 - Add any number of reminders, each with its own label, days of week, time,
   and link
 - Pick which character flies the banner: a cat rollerskating left→right, a
-  dog skateboarding right→left, or a UFO that drops in from the top,
-  unfurls the banner out of its tractor beam, hovers, then pulls it back up
-  — the tray icon updates to match whichever one is selected
+  dog skateboarding right→left, a UFO that drops in from the top, unfurls
+  the banner out of its tractor beam, hovers, then pulls it back up, or a
+  raccoon riding a goose that swoops in a wavy diagonal path from the
+  bottom-right corner to the top-left — the tray icon updates to match
+  whichever one is selected
 - Clicking the flying banner opens that reminder's link; the × dismisses it
 - Enable/disable or edit reminders inline from the same panel
 - "Banner speed" (Slow/Normal/Fast) controls how fast it flies
@@ -76,7 +78,9 @@ first launch:
   reminder matches the current day/time, and fires it at most once per day
 - `src/main/windows.js` — flies the banner window across the primary
   display using a hand-tuned easing curve (rush in → brake/overshoot →
-  hold → exit for the cat/dog; drop in → hover → retract for the alien),
+  hold → exit for the cat/dog; drop in → hover → retract for the alien;
+  same rush/hold/exit shape but along a bottom-right→top-left diagonal
+  with a perpendicular sine wave layered on top, for the raccoon's swoop),
   and shows/hides the tray-anchored popover panel
 - `src/main/tray.js` — the tray icon (swapped per selected character);
   left-click toggles the popover panel, right-click gives a minimal native
@@ -85,10 +89,11 @@ first launch:
   form, Launch at Login, Banner speed, Character picker, Test Flying,
   Quit), styled as a dark menu attached to the tray icon
 - `src/renderer/banner` — builds the flying scene per character (character
-  image + towed banner + rope for cat/dog; ship + tractor-beam banner for
-  the alien) from the artwork in `src/assets/characters/`, with the
-  "legs moving" read created by a whole-body wobble/rock animation plus
-  trailing dust puffs, not literal limb articulation (the source art is a
+  image + towed banner + rope for cat/dog/raccoon; ship + tractor-beam
+  banner for the alien) from the artwork in `src/assets/characters/`, with
+  the "legs moving" read created by a whole-body wobble/rock animation plus
+  trailing dust puffs (skipped for the raccoon — it's airborne, not rolling
+  on the ground), not literal limb articulation (the source art is a
   single static pose per character)
 - `src/assets/characters/` — the character and banner artwork (provided,
   not generated)
