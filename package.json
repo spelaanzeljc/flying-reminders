@@ -1,7 +1,7 @@
 {
   "name": "flying-reminders",
   "productName": "Flying Reminders",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Menu-bar app that flies a character towing a banner across your screen at times you schedule, prompting you to log your hours.",
   "main": "src/main/index.js",
   "private": true,
